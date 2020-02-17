@@ -46,7 +46,6 @@ services:
       XDEBUG_CONFIG: 'remote_host=172.17.0.1'
       BLACKFIRE_CLIENT_ID: '${BLACKFIRE_CLIENT_ID:-client_id}'
       BLACKFIRE_CLIENT_TOKEN: '${BLACKFIRE_CLIENT_TOKEN:-client_token}'
-      ASPELL_BINARY_PATH: '${ASPELL_BINARY_PATH:-aspell}'
     volumes:
       - './:/srv/pim'
     working_dir: '/srv/pim'
@@ -66,9 +65,10 @@ services:
       - 'pim'
 
   selenium:
-    image: 'selenium/standalone-firefox-debug:2.53.1-beryllium'
+    image: 'selenium/standalone-chrome-debug:3'
     volumes:
       - './:/srv/pim:ro'
+      - '/dev/shm:/dev/shm'
     ports:
       - '${DOCKER_PORT_SELENIUM:-5910}:5900'
     networks:
